@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sum Calculator</title>
+  </head>
+
+  <body>
+    <input
+      id="input1"
+      type="text"
+      placeholder="First number"
+      oninput="debounceCalculateSum()"
+    />
+    <br />
+    <br />
+
+    <input
+      id="input2"
+      type="text"
+      placeholder="Second number"
+      oninput="debounceCalculateSum()"
+    />
+    <br />
+    <br />
+
+    <p id="sum"></p>
+
+    <script>
+      let timer;
+      const debounceCalculateSum = () => {
+        clearTimeout(timer);
+
+        timer = setTimeout(calculateSum, 300);
+      };
+
+      const calculateSum = async () => {
+        const input1 = document.getElementById("input1").value;
+        const input2 = document.getElementById("input2").value;
+
+        const data = await fetch(
+          `http://localhost:3000/sum?a=${input1}&b=${input2}`
+        );
+        const sum = await data.text();
+
+        document.getElementById("sum").innerText = `The sum is: ${sum}`;
+      };
+    </script>
+  </body>
+</html>
