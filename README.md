@@ -22,8 +22,12 @@ Debouncing delays the execution of a function until a specified time has passed 
 
 ```javascript
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 3000;
+
+app.use(cors());
+app.use(express.json());
 
 app.get("/sum", (req, res) => {
   const { a, b } = req.query;
